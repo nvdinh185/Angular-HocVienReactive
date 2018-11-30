@@ -1,0 +1,36 @@
+<p>
+  hoc-vien works!
+</p>
+<div *ngIf="isShow">
+  <button (click)="isShowAdd=!isShowAdd; isShow=!isShow">Them hoc vien</button>
+  <button (click)="isShowEdit=!isShowEdit; isShow=!isShow">Sua hoc vien</button>
+  <button (click)="isShowDel=!isShowDel; isShow=!isShow">Xoa hoc vien</button>
+</div>
+<form (submit)="addHV()" [formGroup] ="HocVienForm" *ngIf="isShowAdd">
+  <input placeholder="ten hoc vien" formControlName="tenHV" required />
+  <span class="error" *ngIf="HocVienForm.get('tenHV').touched && HocVienForm.get('tenHV').invalid">Yeu cau nhap!</span><br /><br />
+  <input placeholder="gioi tinh"  formControlName="gioiTinh" required />
+  <span class="error" *ngIf="HocVienForm.get('gioiTinh').touched && HocVienForm.get('gioiTinh').invalid">Yeu cau nhap!</span><br /><br />
+  <input [disabled]="HocVienForm.invalid" type="submit" value="Them" />
+</form>
+<h1>Thong tin hoc vien</h1>
+<select [(ngModel)]="filterStatus">
+  <option value="tat_ca">Tat ca</option>
+  <option value="nam">Nam</option>
+  <option value="nu">Nu</option>
+</select>
+<button (click)="isShowDel=!isShowDel; isShow = !isShow" *ngIf="isShowDel">Xoa xong</button>
+<button (click)="isShowEdit=!isShowEdit; isShow = !isShow" *ngIf="isShowEdit">Sua xong</button>
+<div *ngFor="let objHocVien of arHocVien" id="hocvien">
+  <div *ngIf="getShowStatus(objHocVien.gioiTinh)">
+    <h4>Ma hoc vien: {{ objHocVien.id }}</h4>
+    <h3>Ho ten: <span *ngIf="!isShowEdit">{{ objHocVien.tenHV }}</span>
+      <input *ngIf="isShowEdit" placeholder="{{ objHocVien.tenHV }}" [(ngModel)]="newName" />
+    </h3>
+    <p>Gioi tinh: <span *ngIf="!isShowEdit">{{ objHocVien.gioiTinh?"Nam":"Nu" }}</span>
+      <input *ngIf="isShowEdit" placeholder="{{ objHocVien.gioiTinh?'Nam':'Nu' }}" [(ngModel)]="newGender" />
+    </p>
+    <button (click)="deleteHV(objHocVien.id)" *ngIf="isShowDel">Xoa</button>
+    <button (click)="editHV(objHocVien.id)" *ngIf="isShowEdit">Sua</button>
+  </div>
+</div>
