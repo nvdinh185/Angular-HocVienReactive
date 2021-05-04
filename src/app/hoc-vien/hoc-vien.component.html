@@ -6,11 +6,13 @@
   <button (click)="isShowEdit=!isShowEdit; isShow=!isShow">Sua hoc vien</button>
   <button (click)="isShowDel=!isShowDel; isShow=!isShow">Xoa hoc vien</button>
 </div>
-<form (submit)="addHV()" [formGroup] ="HocVienForm" *ngIf="isShowAdd">
+<form (submit)="addHV()" [formGroup]="HocVienForm" *ngIf="isShowAdd">
   <input placeholder="ten hoc vien" formControlName="tenHV" required />
-  <span class="error" *ngIf="HocVienForm.get('tenHV').touched && HocVienForm.get('tenHV').invalid">Yeu cau nhap!</span><br /><br />
-  <input placeholder="gioi tinh"  formControlName="gioiTinh" required />
-  <span class="error" *ngIf="HocVienForm.get('gioiTinh').touched && HocVienForm.get('gioiTinh').invalid">Yeu cau nhap!</span><br /><br />
+  <span class="error" *ngIf="HocVienForm.get('tenHV').touched && HocVienForm.get('tenHV').errors?.required">Yeu cau
+    nhap!</span><br /><br />
+  <input placeholder="gioi tinh" formControlName="gioiTinh" required />
+  <span class="error" *ngIf="HocVienForm.get('gioiTinh').touched && HocVienForm.get('gioiTinh').errors?.required">Yeu
+    cau nhap!</span><br /><br />
   <input [disabled]="HocVienForm.invalid" type="submit" value="Them" />
 </form>
 <h1>Thong tin hoc vien</h1>

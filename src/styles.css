@@ -1,9 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
-#hocvien{
+#hocvien {
     background-color: aquamarine;
     width: 300px;
 }
-.error{
+.error {
     color: red;
     font-style: italic;
 }

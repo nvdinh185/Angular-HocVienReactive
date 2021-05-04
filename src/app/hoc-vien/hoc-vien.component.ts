@@ -8,15 +8,8 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms'
 })
 export class HocVienComponent implements OnInit {
   HocVienForm: FormGroup;
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
-
-  ngOnInit() {
-    this.HocVienForm = this.fb.group({
-      tenHV: '',
-      gioiTinh: ['', gioiTinhValidator]
-    })
-  }
   isShow = true;
   isShowAdd = false;
   isShowDel = false;
@@ -32,24 +25,27 @@ export class HocVienComponent implements OnInit {
     { id: 4, tenHV: "Quyen", gioiTinh: true },
   ];
 
+  ngOnInit() {
+    this.HocVienForm = this.fb.group({
+      tenHV: '',
+      gioiTinh: ['', gioiTinhValidator]
+    })
+  }
+
   addHV() {
     var id = this.arHocVien.length + 1;
     var strGioiTinh = this.HocVienForm.value.gioiTinh.toUpperCase();
-    if (strGioiTinh != "nam".toUpperCase() && strGioiTinh != "nu".toUpperCase()) {
-      alert("Gioi tinh nhap sai!");
-    } else {
-      var tenHV = this.HocVienForm.value.tenHV;
-      var gioiTinh = (strGioiTinh == "nam".toUpperCase());
-      var hocVien = { id, tenHV, gioiTinh }
-      this.arHocVien.unshift(hocVien);
-      alert("Da them thanh cong!");
-      this.isShowAdd = !this.isShowAdd;
-      this.isShow = !this.isShow;
-      this.HocVienForm = this.fb.group({
-        tenHV: '',
-        gioiTinh: ''
-      })
-    }
+    var tenHV = this.HocVienForm.value.tenHV;
+    var gioiTinh = (strGioiTinh == "nam".toUpperCase());
+    var hocVien = { id, tenHV, gioiTinh }
+    this.arHocVien.unshift(hocVien);
+    // alert("Da them thanh cong!");
+    this.isShowAdd = !this.isShowAdd;
+    this.isShow = !this.isShow;
+    this.HocVienForm = this.fb.group({
+      tenHV: '',
+      gioiTinh: ['', gioiTinhValidator]
+    })
   }
 
   deleteHV(id) {
@@ -75,7 +71,7 @@ export class HocVienComponent implements OnInit {
     alert("Da sua thanh cong!");
   }
 }
-function gioiTinhValidator(formControl: FormControl){
-  if(formControl.value=="nam"||formControl.value=="nu") return null;
+function gioiTinhValidator(formControl: FormControl) {
+  if (formControl.value == "nam" || formControl.value == "nu") return null;
   else return { gioitinh: true };
 }
